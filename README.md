@@ -12,6 +12,7 @@ To start the web server
 ```
 npm start
 ```
+Open the browser and go to [http://localhost:3000](http://localhost:3000)
 
 ## Linting
 For linting we are using eslint. We use the excellent [airbnb config](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb) as a base.
