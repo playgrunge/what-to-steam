@@ -9,24 +9,39 @@ export default class App extends React.Component {
     }
 
     handleClick() {
-        this.props.fetchGames(123456);
+        this.props.fetchGames(this.refs.steamId.value);
     }
-
 
     render() {
         const {games} = this.props;
-        let gamesFormat = games.toString();
+        let realGames;
+        if (games.isFetching) {
+            realGames = 'Loading';
+        }else if (games.hasError) {
+            realGames = 'Error';
+        }else {
+            realGames = games.items.toString();
+        }
         return (
             <div>
-                <button onClick={this.handleClick}>Get games</button>
-                {gamesFormat}
+                <h1>
+                    What to steam
+                </h1>
+
+                <div>
+                    <input ref="steamId" placeholder="Steam ID" style={{marginRight: 5}}></input>
+                    <button onClick={this.handleClick}>Begin</button>
+                </div>
+                <div>
+                    {realGames}
+                </div>
             </div>
         );
     }
 }
 
 App.propTypes = {
-    games: React.PropTypes.array.isRequired,
+    games: React.PropTypes.object.isRequired,
     fetchGames: React.PropTypes.func.isRequired
 };
 

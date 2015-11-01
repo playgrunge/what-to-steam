@@ -1,18 +1,29 @@
-import {GET_GAMES} from '../actions/GameActions';
+import {GET_GAMES_REQUEST, GET_GAMES_SUCCESS, GET_GAMES_FAILURE} from '../actions/GameActions';
 
 
-export default function games(state = [], action) {
-    let newState = state;
+const initialState = {
+isFetching: false,
+items: []
+};
+
+export default function games(state = initialState, action) {
     switch (action.type) {
-    case GET_GAMES:
-        if (action.error) {
-            console.log('in error', action);
-        }else {
-            console.log('in success', action);
-            newState = action.payload.data.children;
-        }
-        break;
+    case GET_GAMES_REQUEST:
+        return Object.assign({}, state, {
+            isFetching: true,
+        });
+    case GET_GAMES_SUCCESS:
+        return Object.assign({}, state, {
+            isFetching: false,
+            items: action.payload.response.games,
+            lastUpdated: action.receivedAt
+        });
+    case GET_GAMES_FAILURE:
+        return Object.assign({}, state, {
+            isFetching: false,
+            hasError: true,
+        });
     default:
+        return state;
     }
-    return newState;
 }
