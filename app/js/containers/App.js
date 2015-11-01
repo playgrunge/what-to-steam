@@ -27,7 +27,9 @@ export default class App extends React.Component {
                 <h1>
                     What to steam
                 </h1>
-
+                <div>
+                If you do not have have an account steam you can try the app with this account number example : 76561197960434622
+                </div>
                 <div>
                     <input ref="steamId" placeholder="Steam ID" style={{marginRight: 5}}></input>
                     <button onClick={this.handleClick}>Begin</button>
